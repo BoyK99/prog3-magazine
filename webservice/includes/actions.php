@@ -29,6 +29,31 @@ function getDishes()
             "id" => 5,
             "name" => "Paella",
             "kitchen" => "Spanish",
+        ],
+        [
+            "id" => 6,
+            "name" => "Pasta",
+            "kitchen" => "Italian",
+        ],
+        [
+            "id" => 7,
+            "name" => "Baguette",
+            "kitchen" => "French",
+        ],
+        [
+            "id" => 8,
+            "name" => "Wraps",
+            "kitchen" => "Mexican",
+        ],
+        [
+            "id" => 9,
+            "name" => "Risotto",
+            "kitchen" => "Italian",
+        ],
+        [
+            "id" => 10,
+            "name" => "Stew",
+            "kitchen" => "Dutch",
         ]
     ];
 }
@@ -60,6 +85,26 @@ function getDishDetails($id)
             "recipe" => "Specialty when on holiday in Spain",
             "tags" => ['fish']
         ],
+        6 => [
+            "recipe" => "Famous Italian dish",
+            "tags" => ['sauce', 'cheesy']
+        ],
+        7 => [
+            "recipe" => "🥖",
+            "tags" => ['bread']
+        ],
+        8 => [
+            "recipe" => "Nice with chicken and guac",
+            "tags" => ['guacamole']
+        ],
+        9 => [
+            "recipe" => "Sticky rice with wine",
+            "tags" => ['rice', 'wine']
+        ],
+        10 => [
+            "recipe" => "Typical dutch",
+            "tags" => ['worst']
+        ]
     ];
 
     return $tags[$id];
