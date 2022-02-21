@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: darkorange;
+    width: auto;
+    height: 6em;
+    margin-top: 0;
+}
+
+p.white-text {
+    padding-left: 10px;
+    padding-top: 20px;
+    color: white;
+    font-size: 4em;
+    position: fixed;
+}
+
+div.web-content {
+    /*background-color: red;*/
+    width: auto;
+    height: 20em;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5em;
+}
+
+div.overview {
+    background-color: white;
+    flex: 80%;
+    height: 54em;
+    display: flex;
+}
+
+div.details {
+    background-color: #f3f3f2;
+    flex: 20%;
+    height: 54em;
+    display: flex;
+}
+
+div.dish {
+    border-color: #e8e8e8 ;
+    border-style: solid;
+    border-width: 0.1em;
+    height: 5em;
+    width: 10em;
+    margin: 0.5em;
+}
+
+img.dish {
+    height: 10em;
+    width: 13em;
+}
