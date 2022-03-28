@@ -2,58 +2,67 @@
 /**
  * @return array
  */
-function getDishes()
-{
+function getDishes() {
     return [
         [
             "id" => 1,
             "name" => "Pizza",
             "kitchen" => "Italian",
+            "image" => 'https://images.newyorkpizza.nl/Products/Original/Margherita-7253.png'
         ],
         [
             "id" => 2,
             "name" => "Kale",
             "kitchen" => "Dutch",
+            "image" => "sad"
         ],
         [
             "id" => 3,
             "name" => "Lasagna",
             "kitchen" => "Italian",
+            "image" => "asd"
         ],
         [
             "id" => 4,
             "name" => "Kebab",
             "kitchen" => "Turkish",
+            "image" => "asasas"
         ],
         [
             "id" => 5,
             "name" => "Paella",
             "kitchen" => "Spanish",
+            "image" => "fffg"
         ],
         [
             "id" => 6,
             "name" => "Pasta",
             "kitchen" => "Italian",
+            "image" => "dfgfdgfgd"
         ],
         [
             "id" => 7,
             "name" => "Baguette",
             "kitchen" => "French",
+            "image" => "dffsdfds"
         ],
         [
             "id" => 8,
             "name" => "Wraps",
             "kitchen" => "Mexican",
+            "image" => "ewqwe"
         ],
         [
             "id" => 9,
             "name" => "Risotto",
             "kitchen" => "Italian",
+            "image" => "assadsad"
         ],
         [
             "id" => 10,
             "name" => "Stew",
             "kitchen" => "Dutch",
+            "image" => "vvvvvvv"
         ]
     ];
 }
@@ -62,8 +71,7 @@ function getDishes()
  * @param $id
  * @return mixed
  */
-function getDishDetails($id)
-{
+function getDishDetails($id) {
     $tags = [
         1 => [
             "recipe" => "Put it in the oven and go!",
