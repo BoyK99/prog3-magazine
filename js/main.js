@@ -39,15 +39,27 @@ function createInfoCards(data) {
 
         infoGallery.appendChild(infoCard);
 
-        fetch(apiUrl)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(response.statusText);
-                }
-                return response.json(); })
-            .then(fillInfoCard)
-            .catch(ajaxErrorHandler);
+        // fetch(apiUrl)
+        //     .then((response) => {
+        //         if (!response.ok) {
+        //             throw new Error(response.statusText);
+        //         }
+        //         return response.json(); })
+        //     .then(fillInfoCard)
+        //     .catch(ajaxErrorHandler);
+        // let infoCard = document.querySelector(`.dish[data-name='${.name}']`);
+
+        // Print name
+        let title = document.createElement('h2');
+        title.innerHTML = `${card.name}`;
+        infoCard.appendChild(title);
+
+        // Print img
+        let image = document.createElement('img');
+        image.src = `${card.image}`;
+        infoCard.appendChild(image);
     }
+console.log(data);
 }
 
 /**
@@ -76,6 +88,7 @@ function fillInfoCard(data) {
  */
 function ajaxErrorHandler(data) {
     let error = document.createElement('div');
+    console.log(data);
     error.classList.add('error');
     error.innerHTML = "Sukkel!";
     infoGallery.before(error);
