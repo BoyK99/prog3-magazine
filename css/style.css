@@ -53,9 +53,8 @@
 
 .dish {
     margin: 5px;
-    width: 180px;
-    /*height: 65%;*/
-    /*margin-bottom: 5px;*/
+    width: 100%;
+    padding: 0.2em;
     text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
@@ -72,18 +71,24 @@
 }
 
 .dish button {
-    width: 5em;
-    cursor: pointer;
-    margin-left: 1em;
-    border: 0;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    font-weight: bold;
     float: left;
+    width: 50%;
+    border: 0;
+    font-weight: bold;
+    margin-top: 1em;
+    margin-left: 5px;
+    margin-right: 22px;
+    padding: 0.6em;
+
 }
 
-.dish button-favo {
-    float: right;
+.dish favoItem {
+    background-color: darkorange;
+}
+
+.favo {
+    width: 20% !important;
+    color: red;
 }
 
 /* Div where all details are displayed */
@@ -92,4 +97,13 @@
     flex: 25%;
     height: 54em;
     display: flex;
+}
+
+.details infoCard {
+
+}
+
+.details img {
+    height: 400px;
+    width: 400px;
 }
