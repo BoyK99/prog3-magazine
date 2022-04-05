@@ -2,22 +2,33 @@ window.addEventListener('load', init);
 
 //Globals
 let apiUrl = 'http://localhost/prog3-magazine/webservice/';
+let descriptionUrl = "http://localhost/prog3-magazine/webservice/index.php?id=";
 let cardData = {};
+let infoData = {};
 let favoriteItems = {};
-
-let infoGallery = document.getElementById('info-gallery');
-let detailModal = document.getElementById('detail-gallery');
-let favoButton = document.getElementById('faveButton');
+let infoGallery;
+let detailModal;
+let favoButton;
 
 function init() {
-    getInfoData()
-    setTimeout(loadFavorites, 1000);
+    getInfoData();
+    // setTimeout(loadFavorites, 1000);
 
+    favoButton = document.getElementsByTagName('i');
+    detailModal = document.getElementById('detail-gallery');
+
+    infoGallery = document.getElementById('info-gallery');
     infoGallery.addEventListener('click', galleryClickHandler);
-    favoButton.addEventListener('click', addToFavorite)
-    // infoGallery.addEventListener('click', addToFavorite);
+
+    favoButton = document.getElementById('faveButton');
+    // favoButton.addEventListener('click', addToFavorite)
+
+    //infoGallery.addEventListener('click', addToFavorite);
+    //detailModal = document.getElementById('detail-gallery');
+
 }
 
+// Card data ophalen
 function getInfoData() {
     fetch(apiUrl)
         .then((response) => {
@@ -61,7 +72,7 @@ function createInfoCards(data) {
 
         // Favorite button
         let button2 = document.createElement('button');
-        button2.innerHTML = '<i class="fa-regular fa-heart"></i>';
+        button2.innerHTML = '<i class="fa-regular fa-star fa-xl"></i>';
         button2.dataset.id = card.id;
         button2.classList.add('favo');
         button2.id = "faveButton";
@@ -71,15 +82,44 @@ function createInfoCards(data) {
     }
 }
 
+// Description data
+function getDescriptionData(id){
+    fetch(descriptionUrl+id)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            return response.json();
+        })
+        .then(createDataCards)
+        .catch(ajaxErrorHandler);
+}
+
+function createDataCards(datas) {
+    console.log(datas);
+    for (let cards of datas) {
+        //TODO: Print de data uit de tags in de webservice
+        let dataInfo = document.createElement('p');
+        dataInfo.innerHTML = cards.id.recipe;
+
+        detailModal.appendChild(dataInfo);
+
+        infoData[cards.id] = cards;
+
+    }
+}
+
+
+
 function galleryClickHandler(e) {
     let clickedItem = e.target;
-    let descriptionInfo = "http://localhost/prog3-magazine/webservice/index.php?id=" + e.target.dataset.id;
-    console.log(descriptionInfo);
-
+    console.log(clickedItem);
     //Check if we clicked on a button
     if (clickedItem.nodeName !== 'BUTTON') {
         return;
     }
+
+    getDescriptionData(clickedItem.dataset.id);
 
     //Get the information from the global stored data
     let card = cardData[clickedItem.dataset.id];
@@ -87,47 +127,47 @@ function galleryClickHandler(e) {
     //Reset the content
     detailModal.innerHTML = '';
 
-    //Show the name we used on the main grid
+    //Show name of array object
     let title = document.createElement('h1');
-    title.innerHTML = `${card.name} (#${card.id})`;
+    title.innerHTML = `${card.name}`;
     detailModal.appendChild(title);
 
-    //Display the shiny
+    //Display the image
     let image = document.createElement('img');
     image.src = `${card.image}`;
     detailModal.appendChild(image);
-
-    //TODO: Print de data uit de tags in de webservice
-    let dataInfo = document.createElement('p');
-    dataInfo.innerHTML = `${e.recipe}`;
-    detailModal.appendChild(dataInfo);
 }
 
-function addToFavorite(value) {
-    favoriteItems.push(value);
-    localStorage.setItem('todoItems', JSON.stringify(favoriteItems));
-    //TODO: Verander leeg hartje in vol hartje met CSS.
-    //TODO: Verander dish class naar favoItem.
-}
-
-function removeFavorite() {
-    detailModal.classList.remove('hearth');
-}
-
-function loadFavoritesCss(favoItem) {
-
-}
-
-function loadFavorites() {
-    //TODO: Haal alle favorieten uit localstorage en print ze.
-    let favoriteItems = localStorage.getItem('todoItems');
-    if (favoriteItems !== null) {
-        favoItems = JSON.parse(favoriteItems);
-        for (let favoItem of favoItems) {
-            loadFavoritesCss(favoItem);
-        }
-    }
-}
+// function favoriteClickHandler() {
+//
+// }
+//
+// function addToFavorite(value) {
+//     detailModal.classList.add('fa-solid');
+//     favoriteItems.push(value);
+//     localStorage.setItem('todoItems', JSON.stringify(favoriteItems));
+//     //TODO: Verander leeg hartje in vol hartje met CSS.
+//     //TODO: Verander dish class naar favoItem.
+// }
+//
+// function removeFavorite() {
+//     detailModal.classList.remove('fa-solid');
+// }
+//
+// function loadFavoritesCss(favoItem) {
+//
+// }
+//
+// function loadFavorites() {
+//     //TODO: Haal alle favorieten uit localstorage en print ze.
+//     let favoriteItems = localStorage.getItem('todoItems');
+//     if (favoriteItems !== null) {
+//         favoItems = JSON.parse(favoriteItems);
+//         for (let favoItem of favoItems) {
+//             loadFavoritesCss(favoItem);
+//         }
+//     }
+// }
 
 /**
  * Show an error message to inform the API isn't working correctly
@@ -137,6 +177,6 @@ function ajaxErrorHandler(data) {
     let error = document.createElement('div');
     console.log(data);
     error.classList.add('error');
-    error.innerHTML = "Sukkel!";
+    error.innerHTML = "Werkt niet!";
     infoGallery.before(error);
 }
