@@ -95,18 +95,15 @@ function getDescriptionData(id){
         .catch(ajaxErrorHandler);
 }
 
+
 function createDataCards(datas) {
-    console.log(datas);
-    for (let cards of datas) {
-        //TODO: Print de data uit de tags in de webservice
-        let dataInfo = document.createElement('p');
-        dataInfo.innerHTML = cards.id.recipe;
+    let dataInfo = document.createElement('p');
+    dataInfo.innerHTML = datas.recipe;
+    detailModal.appendChild(dataInfo);
 
-        detailModal.appendChild(dataInfo);
-
-        infoData[cards.id] = cards;
-
-    }
+    let tagInfo = document.createElement('p');
+    tagInfo.innerHTML = datas.tags;
+    detailModal.appendChild(tagInfo);
 }
 
 
