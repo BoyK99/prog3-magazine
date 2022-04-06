@@ -4,15 +4,15 @@ window.addEventListener('load', init);
 let apiUrl = 'http://localhost/prog3-magazine/webservice/';
 let descriptionUrl = "http://localhost/prog3-magazine/webservice/index.php?id=";
 let cardData = {};
-let infoData = {};
-let favoriteItems = {};
+let favoItems = {};
 let infoGallery;
 let detailModal;
 let favoButton;
 
 function init() {
     getInfoData();
-    // setTimeout(loadFavorites, 1000);
+    let favoriteString = localStorage.getItem(favoItems);
+    setTimeout(loadFavorites, 1000, favoriteString);
 
     favoButton = document.getElementsByTagName('i');
     detailModal = document.getElementById('detail-gallery');
@@ -21,11 +21,7 @@ function init() {
     infoGallery.addEventListener('click', galleryClickHandler);
 
     favoButton = document.getElementById('faveButton');
-    // favoButton.addEventListener('click', addToFavorite)
-
-    //infoGallery.addEventListener('click', addToFavorite);
-    //detailModal = document.getElementById('detail-gallery');
-
+    favoButton.addEventListener('click', favoriteClickHandler);
 }
 
 // Card data ophalen
@@ -49,6 +45,7 @@ function createInfoCards(data) {
     for (let card of data) {
         let infoCard = document.createElement('div');
         infoCard.classList.add('dish');
+        infoCard.dataset.cardNumber =  card.id;
         infoCard.dataset.name = card.name;
 
         infoGallery.appendChild(infoCard);
@@ -135,36 +132,44 @@ function galleryClickHandler(e) {
     detailModal.appendChild(image);
 }
 
-// function favoriteClickHandler() {
-//
-// }
-//
-// function addToFavorite(value) {
-//     detailModal.classList.add('fa-solid');
-//     favoriteItems.push(value);
-//     localStorage.setItem('todoItems', JSON.stringify(favoriteItems));
-//     //TODO: Verander leeg hartje in vol hartje met CSS.
-//     //TODO: Verander dish class naar favoItem.
-// }
-//
-// function removeFavorite() {
-//     detailModal.classList.remove('fa-solid');
-// }
-//
-// function loadFavoritesCss(favoItem) {
-//
-// }
-//
-// function loadFavorites() {
-//     //TODO: Haal alle favorieten uit localstorage en print ze.
-//     let favoriteItems = localStorage.getItem('todoItems');
-//     if (favoriteItems !== null) {
-//         favoItems = JSON.parse(favoriteItems);
-//         for (let favoItem of favoItems) {
-//             loadFavoritesCss(favoItem);
-//         }
-//     }
-// }
+function favoriteClickHandler(e) {
+    let clickedItem = e.target;
+    if (clickedItem.nodeName !== 'BUTTON' && clickedItem.className !== 'CLASS VAN BUTTON') {
+        return;
+    }
+
+
+}
+
+function addToFavorite(favoriteItems) {
+    favoItems.push(favoriteItems);
+    localStorage.setItem('favoItems', JSON.stringify(favoriteItems));
+    changeColor(favoriteItems)
+}
+
+function removeFavorite(favoriteItems) {
+    let favoDiv = document.querySelector(`[data-cardNumber='${item}']`);
+    favoDiv.classList.remove('HIER CLASS YES')
+    favoItems.splice(favoriteItems, 1);
+    localStorage.setItem('favoItems', JSON.stringify(favoriteItems));
+
+}
+
+function changeColor(item) {
+    let favoDiv = document.querySelector(`[data-cardNumber='${item}']`);
+    favoDiv.classList.add('HIER CLASS YES')
+}
+
+function loadFavorites(favoriteItem) {
+    //TODO: Haal alle favorieten uit localstorage en print ze.
+    let favoriteItems = localStorage.getItem('favoItems');
+    if (favoriteItems !== null) {
+        favoItems = JSON.parse(favoriteItems);
+        for (let item of favoItems) {
+            changeColor(item);
+        }
+    }
+}
 
 /**
  * Show an error message to inform the API isn't working correctly
